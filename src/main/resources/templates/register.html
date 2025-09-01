@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Register | Tracker Pro</title>
+  <style>
+    :root {
+      --primary-color: #ffcc00;
+      --text-color: #333;
+      --border-color: #ddd;
+      --bg-color: #fff;
+      --shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f5f6fa;
+    }
+
+    .register-container {
+      display: flex;
+      width: 100%;
+      max-width: 1000px;
+      background: var(--bg-color);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    /* Left Form Section */
+    .register-form-section {
+      flex: 1;
+      padding: 40px;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: bold;
+      color: var(--text-color);
+    }
+
+    .form-title {
+      margin-bottom: 25px;
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--text-color);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: var(--text-color);
+    }
+
+    .form-group input {
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .form-group-full {
+      grid-column: span 2;
+    }
+
+    .signup-button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background: var(--primary-color);
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: background 0.3s ease;
+    }
+
+    .signup-button:hover {
+      background: #ffdb4d;
+    }
+
+    /* Right Illustration Section */
+    .illustration-section {
+      flex: 1;
+      background: #fafafa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .illustration-section img {
+      max-width: 90%;
+      height: auto;
+    }
+
+    .error-message {
+      color: #dc2626;
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+    }
+
+    .success-message {
+      color: #16a34a;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    @media(max-width: 768px) {
+      .register-container {
+        flex-direction: column;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-group-full {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    
+    <!-- Left Section: Form -->
+    <div class="register-form-section">
+      <div class="logo-section">
+        <img src="/images/logo.png" alt="Tracker Pro Logo" class="logo-icon">
+        <span class="logo-text">Tracker Pro</span>
+      </div>
+
+      <h2 class="form-title">Create your account</h2>
+
+      <form id="registrationForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="fullName">Full Name :</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Enter your name.." required>
+            <div id="fullNameError" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="department">Department :</label>
+            <input type="text" id="department" name="department" placeholder="HR/faculty/Admin" required>
+            <div id="departmentError" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="empId">Emp Id :</label>
+            <input type="text" id="empId" name="empId" placeholder="00012..." required>
+            <div id="empIdError" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password :</label>
+            <input type="password" id="password" name="password" placeholder="xxxxxxxxxx" required>
+            <div id="passwordError" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="mobileNo">Mobile No. :</label>
+            <input type="text" id="mobileNo" name="mobileNo" placeholder="+91-987654321" required>
+            <div id="mobileNoError" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password :</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="xxxxxxxxxx" required>
+            <div id="confirmPasswordError" class="error-message"></div>
+          </div>
+          
+          <!-- Full width Email Field -->
+          <div class="form-group form-group-full">
+            <label for="companyEmail">Company e-mail :</label>
+            <input type="email" id="companyEmail" name="email" placeholder="eg:@zoho.com" required>
+            <div id="emailError" class="error-message"></div>
+          </div>
+        </div>
+
+        <button type="submit" class="signup-button">Sign up</button>
+        <div id="registrationMessage"></div>
+      </form>
+    </div>
+
+    <!-- Right Section: Illustration -->
+    <div class="illustration-section">
+      <img src="/images/illustration.png" alt="Illustration">
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Clear previous messages
+      clearErrorMessages();
+      
+      const formData = {
+        fullName: document.getElementById('fullName').value,
+        email: document.getElementById('companyEmail').value,
+        password: document.getElementById('password').value,
+        confirmPassword: document.getElementById('confirmPassword').value,
+        department: document.getElementById('department').value,
+        empId: document.getElementById('empId').value,
+        mobileNo: document.getElementById('mobileNo').value
+      };
+      
+      // Frontend validation
+      if (!validateForm(formData)) return;
+      
+      try {
+        const response = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          document.getElementById('registrationMessage').innerHTML = 
+            '<div class="success-message">' + data.message + '</div>';
+          setTimeout(() => {
+            window.location.href = '/success';
+          }, 1500);
+        } else {
+          document.getElementById('registrationMessage').innerHTML = 
+            '<div class="error-message">' + data.message + '</div>';
+        }
+      } catch (error) {
+        document.getElementById('registrationMessage').innerHTML = 
+          '<div class="error-message">Registration failed. Please try again.</div>';
+      }
+    });
+
+    function clearErrorMessages() {
+      const errorElements = document.querySelectorAll('.error-message');
+      errorElements.forEach(element => element.textContent = '');
+    }
+
+    function validateForm(data) {
+      let hasErrors = false;
+      
+      if (!data.fullName) {
+        document.getElementById('fullNameError').textContent = 'Full name is required';
+        hasErrors = true;
+      }
+      
+      if (!data.email) {
+        document.getElementById('emailError').textContent = 'Email is required';
+        hasErrors = true;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+        document.getElementById('emailError').textContent = 'Invalid email format';
+        hasErrors = true;
+      }
+      
+      if (!data.password) {
+        document.getElementById('passwordError').textContent = 'Password is required';
+        hasErrors = true;
+      } else if (data.password.length < 6) {
+        document.getElementById('passwordError').textContent = 'Password must be at least 6 characters';
+        hasErrors = true;
+      }
+      
+      if (!data.confirmPassword) {
+        document.getElementById('confirmPasswordError').textContent = 'Confirm password is required';
+        hasErrors = true;
+      } else if (data.password !== data.confirmPassword) {
+        document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+        hasErrors = true;
+      }
+      
+      if (!data.department) {
+        document.getElementById('departmentError').textContent = 'Department is required';
+        hasErrors = true;
+      }
+      
+      if (!data.empId) {
+        document.getElementById('empIdError').textContent = 'Employee ID is required';
+        hasErrors = true;
+      }
+      
+      if (!data.mobileNo) {
+        document.getElementById('mobileNoError').textContent = 'Mobile number is required';
+        hasErrors = true;
+      }
+      
+      return !hasErrors;
+    }
+
+    // Real-time validation for email and empId
+    document.getElementById('companyEmail').addEventListener('blur', async function() {
+      const email = this.value;
+      if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        try {
+          const response = await fetch(`/api/auth/check-email?email=${encodeURIComponent(email)}`);
+          const data = await response.json();
+          if (data.exists) {
+            document.getElementById('emailError').textContent = 'Email already exists';
+          }
+        } catch (error) {
+          console.error('Error checking email:', error);
+        }
+      }
+    });
+
+    document.getElementById('empId').addEventListener('blur', async function() {
+      const empId = this.value;
+      if (empId) {
+        try {
+          const response = await fetch(`/api/auth/check-empid?empId=${encodeURIComponent(empId)}`);
+          const data = await response.json();
+          if (data.exists) {
+            document.getElementById('empIdError').textContent = 'Employee ID already exists';
+          }
+        } catch (error) {
+          console.error('Error checking empId:', error);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
