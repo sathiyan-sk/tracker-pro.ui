@@ -1,0 +1,12 @@
+com/trackerapp/repository/UserRepository.class
+com/trackerapp/model/Role.class
+com/trackerapp/dto/RegistrationRequest.class
+com/trackerapp/controller/AuthController.class
+com/trackerapp/dto/LoginRequest.class
+com/trackerapp/model/User.class
+com/trackerapp/TrackerProApplication.class
+com/trackerapp/config/DataInitializer.class
+com/trackerapp/config/SecurityConfig.class
+com/trackerapp/config/SessionAuthenticationFilter.class
+com/trackerapp/controller/WebController.class
+com/trackerapp/service/UserService.class

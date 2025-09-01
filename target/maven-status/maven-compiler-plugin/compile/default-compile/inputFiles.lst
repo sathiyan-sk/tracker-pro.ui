@@ -1,0 +1,12 @@
+/app/src/main/java/com/trackerapp/dto/RegistrationRequest.java
+/app/src/main/java/com/trackerapp/model/User.java
+/app/src/main/java/com/trackerapp/config/DataInitializer.java
+/app/src/main/java/com/trackerapp/repository/UserRepository.java
+/app/src/main/java/com/trackerapp/service/UserService.java
+/app/src/main/java/com/trackerapp/dto/LoginRequest.java
+/app/src/main/java/com/trackerapp/controller/WebController.java
+/app/src/main/java/com/trackerapp/TrackerProApplication.java
+/app/src/main/java/com/trackerapp/model/Role.java
+/app/src/main/java/com/trackerapp/config/SessionAuthenticationFilter.java
+/app/src/main/java/com/trackerapp/controller/AuthController.java
+/app/src/main/java/com/trackerapp/config/SecurityConfig.java
