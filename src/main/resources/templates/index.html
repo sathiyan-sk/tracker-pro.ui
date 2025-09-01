@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tracker PRO | Login</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --accent: #9333ea;
+      --bg: #f9fafb;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --radius: 10px;
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    header {
+      width: 100%;
+      border-bottom: 4px solid #3b82f6;
+    }
+
+    .header-banner {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .login-section {
+      background: var(--surface);
+      padding: 3rem 1rem;
+    }
+
+    .login-wrapper {
+      max-width: 400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .login-header h2 {
+      font-size: 1.6rem;
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+      text-align: center;
+    }
+
+    .login-header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    .login-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .gold-btn {
+      background: #f59e0b;
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .gold-btn:hover {
+      background: #d97706;
+    }
+
+    .other-login {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      padding: 0.6rem;
+      border: 1px solid #d1d5db;
+      border-radius: var(--radius);
+      font: inherit;
+    }
+
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .form-row a {
+      color: var(--primary);
+    }
+
+    .login-btn {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.6rem;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-btn:hover {
+      background: #1e40af;
+    }
+
+    .signup-text {
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .signup-text a {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    footer {
+      background: var(--surface);
+      border-top: 1px solid #e5e7eb;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .error-message {
+      color: #dc2626;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    .success-message {
+      color: #16a34a;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    @media (max-width: 600px) {
+      .login-wrapper {
+        padding: 0 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="/images/banner.png" alt="Tracker PRO Banner" class="header-banner" />
+  </header>
+
+  <section id="login" class="login-section">
+    <div class="login-wrapper">
+      <div class="login-header">
+        <h2>Login Now</h2>
+        <p>Have A Nice Day With You 👋</p>
+      </div>
+
+      <div class="login-actions">
+        <a href="/login" class="gold-btn">Students Login Portal</a>
+        <div class="other-login">— Other Users Login —</div>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email id" required />
+          <div id="emailError" class="error-message"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="••••••••" required />
+          <div id="passwordError" class="error-message"></div>
+        </div>
+
+        <div class="form-row">
+          <label><input type="checkbox" /> Remember me</label>
+          <a href="/forget">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="login-btn">Login</button>
+        <div id="loginMessage"></div>
+      </form>
+
+      <div class="signup-text">
+        Don't have an account? <a href="/register">Sign up</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Tracker PRO. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Clear previous messages
+      document.getElementById('emailError').textContent = '';
+      document.getElementById('passwordError').textContent = '';
+      document.getElementById('loginMessage').textContent = '';
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      // Frontend validation
+      let hasErrors = false;
+      
+      if (!email) {
+        document.getElementById('emailError').textContent = 'Email is required';
+        hasErrors = true;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById('emailError').textContent = 'Invalid email format';
+        hasErrors = true;
+      }
+      
+      if (!password) {
+        document.getElementById('passwordError').textContent = 'Password is required';
+        hasErrors = true;
+      }
+      
+      if (hasErrors) return;
+      
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          document.getElementById('loginMessage').innerHTML = 
+            '<div class="success-message">' + data.message + '</div>';
+          window.location.href = data.redirectUrl;
+        } else {
+          document.getElementById('loginMessage').innerHTML = 
+            '<div class="error-message">' + data.message + '</div>';
+        }
+      } catch (error) {
+        document.getElementById('loginMessage').innerHTML = 
+          '<div class="error-message">Login failed. Please try again.</div>';
+      }
+    });
+  </script>
+
+</body>
+</html>
