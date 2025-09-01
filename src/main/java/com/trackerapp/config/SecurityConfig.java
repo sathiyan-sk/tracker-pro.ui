@@ -22,11 +22,11 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/login", "/register", "/api/auth/**", 
-                                "/css/**", "/js/**", "/images/**", "/static/**",
+                .requestMatchers("/", "/login", "/register", "/success", "/userlogin", "/forget",
+                                "/api/auth/**", "/css/**", "/js/**", "/images/**", "/static/**",
                                 "/h2-console/**").permitAll()
                 .requestMatchers("/dashboard", "/profile", "/reports", "/settings").authenticated()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
             )
             .formLogin(form -> form.disable())
             .logout(logout -> logout
