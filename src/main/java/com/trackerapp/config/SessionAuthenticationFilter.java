@@ -22,7 +22,7 @@ public class SessionAuthenticationFilter extends OncePerRequestFilter {
         HttpSession session = request.getSession(false);
         
         if (session != null) {
-            String userId = (String) session.getAttribute("userId");
+            Long userId = (Long) session.getAttribute("userId");
             String userEmail = (String) session.getAttribute("userEmail");
             String userRole = (String) session.getAttribute("userRole");
             
