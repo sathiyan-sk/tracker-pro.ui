@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login - Tracker Pro</title>
+    <style>
+        /* Basic reset */
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif;}
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            position: relative;
+        }
+        .bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    z-index: -1;
+    background-image: url('/images/bg-curves.png');
+    background-size: cover;
+    background-position: right center;
+}
+        
+        /* Language selector */
+        .lang {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .lang img {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* Main container */
+        .main {
+            width: 450px;
+            padding: 0 15px;
+        }
+        
+        /* Logo */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .header img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .header span {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        /* Login form */
+        .title {
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            color: #666;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+        
+        /* Form fields */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .input-box {
+            position: relative;
+        }
+        
+        .input-box input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .input-box img {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+        }
+        
+        /* Forgot password */
+        .forgot {
+            text-align: right;
+            margin: 10px 0 25px;
+        }
+        
+        .forgot a {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        /* Login button */
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: #ffde59;
+            color: #333;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        /* Register link */
+        .register {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .register a {
+            color: #000;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        .success-message {
+            color: #16a34a;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background pattern -->
+    <div class="bg"></div>
+
+    
+    <!-- Language selector -->
+    <div class="lang">
+        <img src="/images/flag.png" alt="English">
+        <span>EN</span>
+    </div>
+    
+    <!-- Main content -->
+    <div class="main">
+        <!-- Logo header -->
+        <div class="header">
+            <img src="/images/logo.png" alt="Tracker Pro">
+            <span>Tracker Pro</span>
+        </div>
+        
+        <!-- Login form -->
+        <h1 class="title">Student Login!</h1>
+        <p class="subtitle">Unlock a world of education with a single click! Please login in to your account.</p>
+        
+        <form id="studentLoginForm">
+            <div class="form-group">
+                <label>Email Address</label>
+                <div class="input-box">
+                    <input type="email" id="studentEmail" name="email" placeholder="ex: xyz@zohotrainees.com" required>
+                    <img src="/images/mail.png" alt="">
+                </div>
+                <div id="studentEmailError" class="error-message"></div>
+            </div>
+            
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-box">
+                    <input type="password" id="studentPassword" name="password" placeholder="************" required>
+                    <img src="/images/lock.png" alt="">
+                </div>
+                <div id="studentPasswordError" class="error-message"></div>
+            </div>
+            
+            <div class="forgot">
+                <a href="/forget">Forgot Password?</a>
+            </div>
+            
+            <button type="submit" class="btn-login">Login</button>
+            <div id="studentLoginMessage"></div>
+            
+            <p class="register">
+                Didn't enroll program ? <a href="/register">Register For Free</a>
+            </p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('studentLoginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Clear previous messages
+            document.getElementById('studentEmailError').textContent = '';
+            document.getElementById('studentPasswordError').textContent = '';
+            document.getElementById('studentLoginMessage').textContent = '';
+            
+            const email = document.getElementById('studentEmail').value;
+            const password = document.getElementById('studentPassword').value;
+            
+            // Frontend validation
+            let hasErrors = false;
+            
+            if (!email) {
+                document.getElementById('studentEmailError').textContent = 'Email is required';
+                hasErrors = true;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('studentEmailError').textContent = 'Invalid email format';
+                hasErrors = true;
+            }
+            
+            if (!password) {
+                document.getElementById('studentPasswordError').textContent = 'Password is required';
+                hasErrors = true;
+            }
+            
+            if (hasErrors) return;
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('studentLoginMessage').innerHTML = 
+                        '<div class="success-message">' + data.message + '</div>';
+                    window.location.href = data.redirectUrl;
+                } else {
+                    document.getElementById('studentLoginMessage').innerHTML = 
+                        '<div class="error-message">' + data.message + '</div>';
+                }
+            } catch (error) {
+                document.getElementById('studentLoginMessage').innerHTML = 
+                    '<div class="error-message">Login failed. Please try again.</div>';
+            }
+        });
+    </script>
+</body>
+</html>
