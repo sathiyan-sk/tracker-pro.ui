@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -15,6 +16,11 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+    
+    @Bean
+    public SessionAuthenticationFilter sessionAuthenticationFilter() {
+        return new SessionAuthenticationFilter();
     }
     
     @Bean
@@ -28,13 +34,14 @@ public class SecurityConfig {
                 .requestMatchers("/dashboard", "/profile", "/reports", "/settings").authenticated()
                 .anyRequest().permitAll()
             )
+            .addFilterBefore(sessionAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
             .formLogin(form -> form.disable())
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .permitAll()
             )
-            .headers(headers -> headers.frameOptions().disable()); // For H2 console
+            .headers(headers -> headers.frameOptions().sameOrigin()); // Updated for H2 console
             
         return http.build();
     }
